@@ -108,21 +108,160 @@
 // }
 
 
+// function isPremier(n)
+// {
+//     if(n == 0 || n == 1)
+//         return false;
+
+//     for(let i = n - 1; i > 1; i--)
+//     {
+//         if(n % i == 0)
+//             return false;
+//     }
+//     return true;
+// }
+
+
+// console.log('0', isPremier(0)) // false
+// console.log('1', isPremier(1)) // false
+// console.log('2', isPremier(2)) // true
+// console.log('3', isPremier(3)) // true
+// console.log('11', isPremier(11)) // true
+// console.log('12', isPremier(12)) // false
 
 
 
-function isPremier(n) {
-    if (n < 2) {
-        return false
+// function isPalindromAlgo(word)
+// {
+//     let splittedWord = word.split('');
+
+//     let temp = [];
+//     for(let i = 0; i < splittedWord.length; i++)
+//         temp.unshift(splittedWord[i]);
+
+//     let reverseWord = temp.join('');
+
+//     return word.toLowerCase() == reverseWord.toLowerCase();
+// }
+
+// function isPalindrom(word)
+// {
+//     let reverseWord = word.split('').reverse().join('');
+//     return word.toLowerCase() == reverseWord.toLowerCase();
+// }
+
+
+// console.log(isPalindromAlgo('kayak')) // true
+// console.log(isPalindromAlgo('SOS')) // true
+// console.log(isPalindromAlgo('Kayak')) // true
+// console.log(isPalindromAlgo('Bonjour')) // false
+// console.log(isPalindrom('kayak')) // true
+// console.log(isPalindrom('SOS')) // true
+// console.log(isPalindrom('Kayak')) // true
+// console.log(isPalindrom('Bonjour')) // false
+
+
+
+
+// const students = [
+//     {
+//         name: 'John',
+//         notes: [1, 20, 18, 19, 12]
+//     },
+//     {
+//         name: 'Jane',
+//         notes: [17, 18, 20, 13, 15]
+//     },
+//     {
+//         name: 'Sophie',
+//         notes: [17, 12, 14, 15, 13]
+//     },
+//     {
+//         name: 'Marc',
+//         notes: [2, 3, 5, 8, 9]
+//     },
+//     {
+//         name: 'Manon',
+//         notes: [18, 17, 18, 19, 12]
+//     }
+// ];
+
+// function average(notes)
+// {
+//     let sum = 0;
+//     for(let note of notes)
+//         sum += note;
+//     return sum / notes.length;
+// }
+
+// const compare = (a, b) => {
+//     return b.moyenne - a.moyenne;
+// }
+
+// for(let student of students)
+// {
+//     student.moyenne = average(student.notes);
+//     student.worst = Math.min(...student.notes);
+//     student.best = Math.max(...student.notes);
+// }
+
+// students.sort(compare);
+
+// const formatStudent = (student) => {
+//     return `${student.name} avec une moyenne de ${student.moyenne} ; meilleure note (${student.best}) ; pire note (${student.worst})`;
+// }
+
+// console.log(`Top 3 étudiant
+// 1: ${formatStudent(students[0])}
+// 2: ${formatStudent(students[1])}
+// 3: ${formatStudent(students[2])}
+// `);
+
+// students.forEach(element => {
+//     console.log(`${element.name} avec une moyenne de ${element.moyenne} ; meilleure note (${element.best}) ; pire note (${element.worst})`);
+// });
+
+
+const phrase = `Vous savez, moi je ne crois pas qu’il y ait de bonne ou de mauvaise situation. Moi, si je devais résumer ma vie aujourd’hui avec vous, je dirais que c’est d’abord des rencontres.`;
+
+function wordCount(sentence)
+{
+    let array = regex(sentence).toLowerCase().split(' ');
+    const object = {};
+    for(word of array)
+    {
+        if(word in object == false)
+            object[word] = 1;
+        else
+            object[word]++;
     }
-    // On parcours tous les nombres de n jusqu'à 2 dans la variable i
-    for (let i = n - 1; i > 1; i--) {
-        // On regarde si le nombre est divisible par i
-        if (n % i === 0) {
-            return false
-        }
-    }
-    return true
+    return object;
 }
 
-console.log(isPremier(12))
+const regex = (sentence) => {
+    // const regex = /[^a-zA-Z0-9 ]/;
+    if(!isNaN(sentence))
+        return false;
+    return sentence.replaceAll(/[^a-zA-Z0-9éèêàâ’ ]/g, '');
+};
+
+function generateTopThree(sentence)
+{
+    let temp = wordCount(sentence);
+    let sortable = [];
+
+    for(var word in temp)
+        sortable.push([word, temp[word]]);
+
+    let sorted = sortable.sort(function(a, b) {
+        return a[1] - b[1];
+    }).reverse();
+
+    let output = {};
+    for(let i = 0; i < 3; i++)
+        output[sorted[i][0]] = sorted[i][1]
+
+    return output;
+}
+
+console.log(generateTopThree(phrase));
